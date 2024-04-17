@@ -1,6 +1,7 @@
 from psycopg2 import connect
 from pathlib import Path
 import os
+from db import create_connection
 
 def execute_script(conn, filename: str):
     with conn.cursor() as cursor:
@@ -9,16 +10,9 @@ def execute_script(conn, filename: str):
         cursor.execute(sql.read())
 
 def run():
-  conn = connect(
-    dbname=os.getenv('PG_DB'),
-    user=os.getenv('PG_USER'),
-    password=os.getenv('PG_PASSWORD')
-  )
-  conn.autocommit = True
-
+  conn = create_connection()
   execute_script(conn, 'down.sql')
   execute_script(conn, 'up.sql')
-
 
 
 if __name__ == '__main__':
