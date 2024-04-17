@@ -1,0 +1,7 @@
+[project]
+name = "todos"
+version = "0.0.1"
+dependencies = [
+  "psycopg2",
+  "flask"
+]
