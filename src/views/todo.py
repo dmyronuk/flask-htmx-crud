@@ -1,65 +1,26 @@
-from flask import  request, Response
+from flask import request
 from flask.views import MethodView
-from db.db import get_cursor
-from datetime import datetime
+from models.base_model import BaseModel
 
 class TodoAPI(MethodView):
   init_every_request = False
 
+  def __init__(self, model: BaseModel):
+    self.model = model
+
   def get(self, id = None):
-    with get_cursor() as cur:
-      cur.execute(
-        'SELECT * FROM todos LIMIT %(limit)s;',
-        {'limit': request.args.get('limit', 10)}
-      )
-      result = cur.fetchall()
-      return [dict(row) for row in result]
+    if id:
+      todo = self.model.get_one(id)
+      return todo, 200 if todo else '', 404
+    else:
+      return self.model.get_many(request.args.get('limit', 10))
 
   def post(self):
-    body = request.get_json()
-
-    with get_cursor() as cur:
-      cur.execute(
-        """
-          INSERT INTO todos (content, complete, created_at, updated_at) VALUES
-          (%(content)s, false, %(created_at)s, %(created_at)s)
-          RETURNING *;
-        """,
-        {
-          'content': body['content'],
-          'created_at': datetime.now().timestamp()
-        }
-      )
-      result = cur.fetchone()
-      return dict(result)
+    return self.model.create(request.get_json())
 
   def put(self, id: int):
-    body = request.get_json()
-
-    with get_cursor() as cur:
-      cur.execute(
-        """
-          UPDATE todos SET content=%(content)s, updated_at=%(updated_at)s, complete=%(complete)s
-          WHERE id=%(id)s
-          RETURNING *;
-        """,
-        {
-          'id': id,
-          'complete': body['complete'],
-          'content': body['content'],
-          'updated_at': datetime.now().timestamp()
-        }
-      )
-      result = cur.fetchone()
-      return dict(result)
+    return self.model.update(id, request.get_json())
 
   def delete(self, id: int):
-    with get_cursor() as cur:
-      cur.execute(
-        'DELETE FROM todos WHERE id=%(id)s RETURNING *;',
-        {'id': id}
-      )
-      return Response(status=200)
-
-
-TodoView = TodoAPI.as_view('todos')
+    self.model.delete(id)
+    return '', 204
