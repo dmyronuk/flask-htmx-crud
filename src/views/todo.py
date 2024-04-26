@@ -11,7 +11,7 @@ class TodoAPI(MethodView):
   def get(self, id = None):
     if id:
       todo = self.model.get_one(id)
-      return todo, 200 if todo else '', 404
+      return (todo, 200) if todo else ('', 404)
     else:
       return self.model.get_many(request.args.get('limit', 10))
 
@@ -23,4 +23,4 @@ class TodoAPI(MethodView):
 
   def delete(self, id: int):
     self.model.delete(id)
-    return '', 204
+    return ('', 204)
