@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Todo App</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <h1 class="text-lg">
+      Hello Todos
+    </h1>
+    <div class="flex-row gap-md">
+      <div hx-get="/todos" hx-trigger="load">
+        ...loading
+      </div>
+      <div id="todo-details"></div>
+    </div>
+  </body>
+</html>

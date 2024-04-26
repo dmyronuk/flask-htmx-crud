@@ -1,5 +1,5 @@
-from flask import Flask
-from views.todo import TodoAPI
+from flask import Flask, render_template
+from views.todo import TodoAPI, TodoView
 from models.todo_dao import TodoDAO
 from db.db import get_db
 
@@ -9,9 +9,18 @@ def create_app():
   with app.app_context():
     conn = get_db()
 
-    TodoView = TodoAPI.as_view('todos', TodoDAO(conn))
-    app.add_url_rule("/todos", view_func=TodoView, methods=["GET", "POST"])
-    app.add_url_rule("/todos/<int:id>", view_func=TodoView, methods=["GET", "PUT", "DELETE"])
+    todo_dao = TodoDAO(conn)
+    todo_view_func = TodoView.as_view('todo_view', todo_dao)
+    todo_api_view_func = TodoAPI.as_view('todo_api', todo_dao)
+
+    app.add_url_rule("/todos", view_func=todo_view_func, methods=["GET", "POST"])
+    app.add_url_rule("/todos/<int:id>", view_func=todo_view_func, methods=["GET", "PUT", "DELETE"])
+    app.add_url_rule("/api/todos", view_func=todo_api_view_func, methods=["GET", "POST"])
+    app.add_url_rule("/api/todos/<int:id>", view_func=todo_api_view_func, methods=["GET", "PUT", "DELETE"])
+
+    @app.route('/')
+    def index():
+      return render_template('index.html')
 
   return app
 

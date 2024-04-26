@@ -1,0 +1,11 @@
+<ol class="list">
+  {% for todo in todos %}
+    <li
+      hx-get={{ 'todos/' ~ todo.id }}
+      hx-trigger="click"
+      hx-target="#todo-details"
+    >
+      {{ todo.content }}
+    </li>
+  {% endfor %}
+</ol>
