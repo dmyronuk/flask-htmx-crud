@@ -8,7 +8,7 @@
 
 body {
   margin: 0;
-  padding: 0;
+  padding: var(--spacing-md);
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -19,41 +19,4 @@ h1, h2, h3, h4, h5, p, ul, ol {
 
 ol, ul {
   list-style: none;
-}
-
-.flex-row {
-  display: flex;
-  flex-direction: row;
-}
-
-.flex-col {
-  display: flex;
-  flex-direction: column;
-}
-
-.gap-xs { gap: var(--spacing-xs); }
-.gap-sm { gap: var(--spacing-sm); }
-.gap-md { gap: var(--spacing-md); }
-.justify-between { justify-content: space-between; }
-.padding-sm { padding: var(--spacing-sm); }
-.padding-md { padding: var(--spacing-md); }
-
-.list {
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  padding: var(--spacing-md);
-}
-
-.card {
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  padding: var(--spacing-md);
-}
-
-.card label {
-  display: block;
-}
-
-.hidden {
-  display: none;
 }

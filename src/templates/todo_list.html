@@ -1,7 +1,8 @@
 <div>
-  <ol class="list">
+  <ol class="list-group" style="width: 500px">
     {% for todo in todos %}
       <li
+        class="list-group-item"
         hx-get={{ '/todos/' ~ todo.id }}
         hx-trigger="click"
         hx-target="#todo-form-container"
@@ -11,6 +12,7 @@
     {% endfor %}
   </ol>
   <button
+    class="btn btn-primary mt-3"
     hx-get="/todos/new"
     hx-trigger="click"
     hx-target="#todo-form-container"

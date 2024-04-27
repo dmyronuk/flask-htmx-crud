@@ -1,6 +1,6 @@
 <form
   id="todo-edit-form"
-  class="card flex-col gap-sm"
+  class="d-flex flex-column gap-2 border p-3"
   hx-put={{ '/todos/' ~ todo.id }}
   hx-swap="outerHTML"
 >
@@ -13,6 +13,7 @@
     value="{{ todo.id }}"
   />
   <input
+    required
     name="title"
     type="text"
     value="{{ todo.title }}"
@@ -20,18 +21,27 @@
   <label for="content">
     Description
   </label>
-  <textarea name="content" rows="5" cols="50">{{ todo.content }}</textarea>
-  <label for="complete">Complete</label>
-  <input
-    name="complete"
-    type="checkbox"
-    {{ 'checked' if todo.complete }}
-  />
-  <div class="flex-row gap-sm">
-    <button type="submit">
+  <textarea required name="content" rows="5" cols="50">{{ todo.content }}</textarea>
+  <div class="form-check">
+    <input
+      class="form-check-input"
+      name="complete"
+      type="checkbox"
+      {{ 'checked' if todo.complete }}
+    />
+    <label class="form-check-label" for="complete">
+      Complete
+    </label>
+  </div>
+  <div class="d-flex justify-content-center gap-1">
+    <button
+      class="btn btn-primary"
+      type="submit"
+    >
       Update
     </button>
     <button
+      class="btn btn-danger"
       hx-delete={{ '/todos/' ~ todo.id }}
       hx-trigger="click consume"
       hx-target="#todo-edit-form"
