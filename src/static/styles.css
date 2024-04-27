@@ -30,6 +30,7 @@ ol, ul {
   flex-direction: column;
 }
 
+.gap-sm { gap: var(--spacing-sm); }
 .gap-md { gap: var(--spacing-md); }
 .padding-sm { padding: var(--spacing-sm); }
 .padding-md { padding: var(--spacing-md); }
@@ -44,6 +45,10 @@ ol, ul {
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   padding: var(--spacing-md);
+}
+
+.card label {
+  display: block;
 }
 
 .hidden {

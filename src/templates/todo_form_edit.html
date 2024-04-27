@@ -1,0 +1,33 @@
+<form
+  class="card"
+  class="flex-col gap-sm"
+  hx-put={{ '/todos/' ~ todo.id }}
+  hx-swap="outerHTML"
+>
+  <label>
+    Title
+  </label>
+  <input
+    name="id"
+    type="hidden"
+    value="{{ todo.id }}"
+  />
+  <input
+    name="title"
+    type="text"
+    value="{{ todo.title }}"
+  />
+  <label for="content">
+    Description
+  </label>
+  <textarea name="content" rows="5" cols="50">{{ todo.content }}</textarea>
+  <label for="complete">Complete</label>
+  <input
+    name="complete"
+    type="checkbox"
+    {{ 'checked' if todo.complete }}
+  />
+  <button type="submit">
+    Update
+  </button>
+</form>

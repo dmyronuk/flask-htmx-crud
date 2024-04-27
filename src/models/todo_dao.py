@@ -31,13 +31,14 @@ class TodoDAO(BaseModel):
      with self.get_cursor() as cur:
       cur.execute(
         """
-          INSERT INTO todos (content, complete, created_at, updated_at) VALUES
-          (%(content)s, false, %(created_at)s, %(created_at)s)
+          INSERT INTO todos (title, content, complete, created_at, updated_at) VALUES
+          (%(title)s, %(content)s, false, %(created_at)s, %(created_at)s)
           RETURNING *;
         """,
         {
-          'content': todo['content'],
-          'created_at': datetime.now().timestamp()
+          'content': todo.get('content'),
+          'created_at': datetime.now().timestamp(),
+          'title': todo.get('title')
         }
       )
       result = cur.fetchone()
@@ -47,14 +48,15 @@ class TodoDAO(BaseModel):
      with self.get_cursor() as cur:
       cur.execute(
         """
-          UPDATE todos SET content=%(content)s, updated_at=%(updated_at)s, complete=%(complete)s
+          UPDATE todos SET title=%(title)s, content=%(content)s, updated_at=%(updated_at)s, complete=%(complete)s
           WHERE id=%(id)s
           RETURNING *;
         """,
         {
           'id': id,
-          'complete': todo['complete'],
-          'content': todo['content'],
+          'complete': todo.get('complete'),
+          'content': todo.get('content'),
+          'title': todo.get('title'),
           'updated_at': datetime.now().timestamp()
         }
       )

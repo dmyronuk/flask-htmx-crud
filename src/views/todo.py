@@ -1,4 +1,4 @@
-from flask import request, render_template, redirect
+from flask import make_response, request, render_template, redirect
 from flask.views import MethodView
 from models.base_model import BaseModel
 
@@ -36,7 +36,7 @@ class TodoView(MethodView):
     if id:
       todo = self.model.get_one(id)
       if todo:
-        return render_template('todo_item.html', todo=todo)
+        return render_template('todo_form_edit.html', todo=todo)
       else:
         return redirect('/404')
 
@@ -45,10 +45,16 @@ class TodoView(MethodView):
       return render_template('todo_list.html', todos=todos)
 
   def post(self):
-    pass
+    todo = self.model.create(request.form)
+    response = make_response(render_template('todo_form_edit.html', todo=todo))
+    response.headers.set('HX-Trigger', 'createTodo')
+    return response
 
   def put(self, id: int):
-    pass
+    todo = self.model.update(request.form.get('id'), {**request.form, 'complete': request.form.get('complete', False)})
+    response = make_response(render_template('todo_form_edit.html', todo=todo))
+    response.headers.set('HX-Trigger', 'updateTodo')
+    return response
 
   def delete(self, id: int):
     pass
