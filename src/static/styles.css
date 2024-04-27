@@ -1,6 +1,7 @@
 :root {
   --border-color: #d0d0d0;
   --border-radius: 4px;
+  --spacing-xs: 4px;
   --spacing-sm: 8px;
   --spacing-md: 16px;
 }
@@ -30,8 +31,10 @@ ol, ul {
   flex-direction: column;
 }
 
+.gap-xs { gap: var(--spacing-xs); }
 .gap-sm { gap: var(--spacing-sm); }
 .gap-md { gap: var(--spacing-md); }
+.justify-between { justify-content: space-between; }
 .padding-sm { padding: var(--spacing-sm); }
 .padding-md { padding: var(--spacing-md); }
 

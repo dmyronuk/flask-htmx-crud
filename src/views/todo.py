@@ -57,4 +57,5 @@ class TodoView(MethodView):
     return response
 
   def delete(self, id: int):
-    pass
+    self.model.delete(id)
+    return ('', 200, {'HX-Trigger': 'deleteTodo'})

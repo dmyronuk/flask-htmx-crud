@@ -21,7 +21,7 @@ class TodoDAO(BaseModel):
   def get_many(self, limit=10):
      with self.get_cursor() as cur:
       cur.execute(
-        'SELECT * FROM todos LIMIT %(limit)s;',
+        'SELECT * FROM todos ORDER BY title ASC LIMIT %(limit)s;',
         {'limit': limit}
       )
       result = cur.fetchall()

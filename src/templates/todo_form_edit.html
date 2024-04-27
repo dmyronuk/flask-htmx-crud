@@ -1,6 +1,6 @@
 <form
-  class="card"
-  class="flex-col gap-sm"
+  id="todo-edit-form"
+  class="card flex-col gap-sm"
   hx-put={{ '/todos/' ~ todo.id }}
   hx-swap="outerHTML"
 >
@@ -27,7 +27,17 @@
     type="checkbox"
     {{ 'checked' if todo.complete }}
   />
-  <button type="submit">
-    Update
-  </button>
+  <div class="flex-row gap-sm">
+    <button type="submit">
+      Update
+    </button>
+    <button
+      hx-delete={{ '/todos/' ~ todo.id }}
+      hx-trigger="click consume"
+      hx-target="#todo-edit-form"
+      hx-swap="outerHTML"
+    >
+      Delete
+    </button>
+  </div>
 </form>

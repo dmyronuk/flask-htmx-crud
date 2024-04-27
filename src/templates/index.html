@@ -11,7 +11,10 @@
       Hello Todos
     </h1>
     <div class="flex-row gap-md">
-      <div hx-get="/todos?limit=100" hx-trigger="load, createTodo from:#todo-form-container, updateTodo from:#todo-form-container">
+      <div
+        hx-get="/todos?limit=100"
+        hx-trigger="load, createTodo from:#todo-form-container, updateTodo from:#todo-form-container, deleteTodo from:body"
+      >
         ...loading
       </div>
       <div id="todo-form-container"></div>
