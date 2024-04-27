@@ -1,16 +1,19 @@
 <div>
-  <ol class="list-group" style="width: 500px">
+  <div class="list-group" style="width: 500px">
     {% for todo in todos %}
-      <li
-        class="list-group-item"
+      <button
+        class="list-group-item list-group-item-action"
         hx-get={{ '/todos/' ~ todo.id }}
         hx-trigger="click"
         hx-target="#todo-form-container"
       >
         {{ todo.title }}
-      </li>
+        {% if todo.complete %}
+          <i class="bi bi-check"></i>
+        {% endif %}
+      </button>
     {% endfor %}
-  </ol>
+    </div>
   <button
     class="btn btn-primary mt-3"
     hx-get="/todos/new"
