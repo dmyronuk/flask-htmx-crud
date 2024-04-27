@@ -9,14 +9,4 @@
 body {
   margin: 0;
   padding: var(--spacing-md);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-h1, h2, h3, h4, h5, p, ul, ol {
-  margin: 0;
-  padding: 0;
-}
-
-ol, ul {
-  list-style: none;
 }
