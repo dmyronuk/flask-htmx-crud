@@ -10,15 +10,18 @@
     <script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
   </head>
   <body>
-    <h1>
-      TODO Crud
-    </h1>
+    <div class="d-flex align-items-center">
+      <h1 class="mb-0">
+        TODO Crud
+      </h1>
+      <div id="spinner" class="htmx-indicator spinner-border ms-2" role="status"></div>
+    </div>
     <div class="d-flex gap-3">
       <div
         hx-get="/todos?limit=100"
         hx-trigger="load, createTodo from:#todo-form-container, updateTodo from:#todo-form-container, deleteTodo from:#todo-form-container"
+        hx-indicator="#spinner"
       >
-        ...loading
       </div>
       <div id="todo-form-container"></div>
     </div>
